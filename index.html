@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaomoji Roulette</title>
+    <style>
+        /* Google Fontsからフォントを読み込む */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
+
+        /* ページ全体の基本設定 */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #FFFFFF;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+            color: #000000;
+            overflow: hidden;
+        }
+
+        /* コンテンツを中央に配置するためのコンテナ */
+        .container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 顔文字・AAを表示するエリア */
+        #display {
+            /* AAの表示が崩れないように、等幅フォントを指定 */
+            font-family: "SF Mono", "Menlo", "Monaco", monospace;
+            font-size: 2rem;
+            line-height: 1.4;
+        }
+        
+        /* 虹色テキストクラス */
+        .rainbow-text {
+            background: linear-gradient(to right, #ff7e5f, #feb47b, #ffeb3b, #a7ffeb, #81d4fa, #b39ddb, #f48fb1);
+            background-size: 300% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: rainbow-flow 4s linear infinite;
+        }
+
+        /* 虹色をアニメーションさせるための設定 */
+        @keyframes rainbow-flow {
+            to {
+                background-position: -300% center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <pre id="display">...</pre>
+    </div>
+
+    <script>
+        const displayEl = document.getElementById('display');
+
+        // 顔文字とAAのリスト（修正版）
+        const kaomojiList = [
+            'ദ്ദി(⩌ᴗ⩌ )',
+            '(´>∀<｀)ゝ',
+            '(゜▼゜＊）',
+            'ᖛ ̫ ᖛ',
+            '( ᐕ)', // スペース修正
+            '(^p^)',
+            '(^o^)',
+            '(^з^)-☆',
+            '٩( ᐛ )وʸᵉᵃʰ',
+            '( ‘-^ )b',
+            '(￣▽￣)',
+            '^._.^🎉',
+            '( ´∀｀)',
+            `
+　　　＿＿＿＿
+　 ∧＿∧　∧＿∧＼
+／ (・ω・)(・ω・) ＼
+|￣￣￣￣￣￣￣￣￣|
+| 早く連れてってよ! |
+|＿＿＿＿＿＿＿＿＿|
+
+`,
+            // AAを修正
+            `
+　　　　∧ ∧＿__
+　 　／(*ﾟーﾟ)　／＼
+　 ／|￣∪∪￣￣|＼／
+　 |     　   |／
+　 　 ￣￣￣￣￣
+`
+        ];
+
+        // --- ルーレットアニメーション ---
+        let rouletteInterval = setInterval(() => {
+            displayEl.classList.add('rainbow-text');
+            const randomIndex = Math.floor(Math.random() * kaomojiList.length);
+            displayEl.textContent = kaomojiList[randomIndex];
+        }, 60);
+
+
+        // --- 最終結果の決定 ---
+        setTimeout(() => {
+            clearInterval(rouletteInterval);
+
+            const finalIndex = Math.floor(Math.random() * kaomojiList.length);
+            const finalKaomoji = kaomojiList[finalIndex];
+
+            displayEl.textContent = finalKaomoji;
+
+        }, 2000);
+
+    </script>
+
+</body>
+</html>
